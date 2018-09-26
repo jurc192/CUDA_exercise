@@ -11,7 +11,7 @@ __global__
 void square(float *d_in, float *d_out)
 {
     int ndx = threadIdx.x;
-    d_out[i] = d_in[ndx] * d_in[ndx];
+    d_out[ndx] = d_in[ndx] * d_in[ndx];
 }
 
 
@@ -37,14 +37,16 @@ int main()
     cudaMemcpy(d_vec_a, h_vec_a, ARR_SIZE*sizeof(float), cudaMemcpyHostToDevice);
 
     // Kernel launch
-    sqare<<<1, ARR_SIZE>>>(d_vec_a, d_vec_res);
+    square<<<1, ARR_SIZE>>>(d_vec_a, d_vec_res);
 
     // Transfer data from GPU to CPU
     cudaMemcpy(h_vec_res, d_vec_res, ARR_SIZE*sizeof(float), cudaMemcpyDeviceToHost);
 
     // Delete array
-    delete[] vec_a;
-    delete[] vec_res;
+    delete[] h_vec_a;
+    delete[] h_vec_res;
+    delete[] d_vec_a;
+    delete[] d_vec_res;
 
     return 0;
 }
