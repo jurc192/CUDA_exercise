@@ -29,18 +29,19 @@ int main()
     // Allocate arrays @GPU
     float *d_vec_a;
     float *d_vec_res;
-    cudaMalloc((void **) &d_vec_a, ARR_SIZE * sizeof(float));       // Kako to deluje točno
-    cudaMalloc((void **) &d_vec_res, ARR_SIZE * sizeof(float));
+    const long arr_bytes = ARR_SIZE * sizeof(float);
+    cudaMalloc((void **) &d_vec_a, arr_bytes);       // Kako to deluje točno
+    cudaMalloc((void **) &d_vec_res, arr_bytes);
 
 
     // Transfer data from CPU to GPU
-    cudaMemcpy(d_vec_a, h_vec_a, ARR_SIZE*sizeof(float), cudaMemcpyHostToDevice);
+    cudaMemcpy(d_vec_a, h_vec_a, arr_bytes, cudaMemcpyHostToDevice);
 
     // Kernel launch
     square<<<1, ARR_SIZE>>>(d_vec_a, d_vec_res);
 
     // Transfer data from GPU to CPU
-    cudaMemcpy(h_vec_res, d_vec_res, ARR_SIZE*sizeof(float), cudaMemcpyDeviceToHost);
+    cudaMemcpy(h_vec_res, d_vec_res, arr_bytes, cudaMemcpyDeviceToHost);
 
     // Delete array
     delete[] h_vec_a;
