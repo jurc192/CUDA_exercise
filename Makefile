@@ -2,11 +2,16 @@
 #	Makefile for matmult.cpp
 ##
 
-matmult : src/matmult.cpp
-	c++ -g -O0 -o matmult src/matmult.cpp
+FILENAME = matmult
 
-run: matmult
-	./matmult
+CC = c++
+CXX_FLAGS = -g -O0
+
+debug/matmult : src/$(FILENAME).cu
+	$(CC) $(CXX_FLAGS) -o debug/$(FILENAME) src/$(FILENAME).cu
+
+run: debug/$(FILENAME)
+	./debug/$(FILENAME)
 
 clean:
-	rm matmult
+	rm debug/$(FILENAME)
