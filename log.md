@@ -10,4 +10,4 @@ Zmnoži dva vektorja
 Dodal -ssh shortcut za povezavo na linux server
 `~/.ssh/config`
 
-
+Segmentation fault - dafuk

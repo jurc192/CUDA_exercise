@@ -18,8 +18,8 @@ void square(float *d_in, float *d_out)
 int main()
 {
     // Allocate array @CPU RAM
-    float *h_vec_a = new float[ARR_SIZE];
-    float *h_vec_res = new float[ARR_SIZE];
+    float h_vec_a[ARR_SIZE];
+    float h_vec_res[ARR_SIZE];
 
     // Initialize array @CPU
     for (int i=0; i<ARR_SIZE; i++) {
