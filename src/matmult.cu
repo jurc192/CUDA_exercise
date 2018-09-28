@@ -67,8 +67,8 @@ int main()
     }
 
     // Delete array
-    delete[] h_vec_a;
-    delete[] h_vec_res;
+    // delete[] h_vec_a;
+    // delete[] h_vec_res;
     
     cudaFree(d_vec_a);
     cudaFree(d_vec_res);
