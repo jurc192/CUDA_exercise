@@ -67,13 +67,13 @@ int main()
     }
 
     // Delete array
-    // delete[] h_vec_a;
-    // delete[] h_vec_res;
+    delete[] h_vec_a;
+    delete[] h_vec_res;
     
     cudaFree(d_vec_a);
     cudaFree(d_vec_res);
-    // delete d_vec_a;
-    // delete d_vec_res;
+
+    // if I remove d_vectors here, I get a segmentation error
 
     return 0;
 }
