@@ -24,6 +24,7 @@ int main()
     // Initialize array @CPU
     for (int i=0; i<ARR_SIZE; i++) {
         h_vec_a[i] = (float)i;
+        h_vec_res[i] = 0;
     }
 
 
@@ -41,22 +42,22 @@ int main()
     }
 
 
-    // // Transfer data from CPU to GPU
-    // if (cudaMemcpy(d_vec_a, h_vec_a, arr_bytes, cudaMemcpyHostToDevice) != cudaSuccess) {
-    //     std::cout << "Failed at cudaMemcpy H2D\n";
-    // }
+    // Transfer data from CPU to GPU
+    if (cudaMemcpy(d_vec_a, h_vec_a, arr_bytes, cudaMemcpyHostToDevice) != cudaSuccess) {
+        std::cout << "Failed at cudaMemcpy H2D\n";
+    }
 
-    // // Kernel launch
-    // square<<<1, ARR_SIZE>>>(d_vec_a, d_vec_res);
+    // Kernel launch
+    square<<<1, ARR_SIZE>>>(d_vec_a, d_vec_res);
 
-    // // Transfer data from GPU to CPU
-    // if (cudaMemcpy(h_vec_res, d_vec_res, arr_bytes, cudaMemcpyDeviceToHost) != cudaSuccess) {
-    //     std::cout << "Failed at cudaMemcpy D2H\n";
-    // }
+    // Transfer data from GPU to CPU
+    if (cudaMemcpy(h_vec_res, d_vec_res, arr_bytes, cudaMemcpyDeviceToHost) != cudaSuccess) {
+        std::cout << "Failed at cudaMemcpy D2H\n";
+    }
 
-    // // Delete array
-    // delete[] h_vec_a;
-    // delete[] h_vec_res;
+    // Delete array
+    delete[] h_vec_a;
+    delete[] h_vec_res;
     
     cudaFree(d_vec_a);
     cudaFree(d_vec_res);
