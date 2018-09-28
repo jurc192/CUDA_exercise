@@ -41,8 +41,10 @@ int main()
     }
 
 
+    cudaError_t err;
+    
     // Transfer data from CPU to GPU
-    cudaError_t err = cudaMemcpy(d_vec_a, h_vec_a, arr_bytes, cudaMemcpyHostToDevice);
+    err = cudaMemcpy(d_vec_a, h_vec_a, arr_bytes, cudaMemcpyHostToDevice);
     if (err != cudaSuccess) {
         std::cout << "Failed at cudaMemcpy H2D\n";
         std::cout << cudaGetErrorString(err) << "\n";
@@ -51,10 +53,12 @@ int main()
     // // Kernel launch
     // square<<<1, ARR_SIZE>>>(d_vec_a, d_vec_res);
 
-    // // Transfer data from GPU to CPU
-    // if (cudaMemcpy(h_vec_res, d_vec_res, arr_bytes, cudaMemcpyDeviceToHost) != cudaSuccess) {
-    //     std::cout << "Failed at cudaMemcpy D2H\n";
-    // }
+    // Transfer data from GPU to CPU
+    err = cudaMemcpy(h_vec_res, d_vec_res, arr_bytes, cudaMemcpyDeviceToHost);
+    if ( err != cudaSuccess) {
+        std::cout << "Failed at cudaMemcpy D2H\n";
+        std::cout << cudaGetErrorString(err) << "\n";
+    }
 
     // // Delete array
     // delete[] h_vec_a;
