@@ -27,13 +27,6 @@ int main()
         h_vec_res[i] = 0;
     }
 
-    std::cout << "OUTPUTS:\nh_vec_a\th_vec_res\n";
-    for (int i=0; i<ARR_SIZE; i++) {
-        std::cout << h_vec_a[i] << "\t";
-        std::cout << h_vec_res[i] << "\n";
-    }
-
-
     // Allocate arrays @GPU
     float *d_vec_a;
     float *d_vec_res;
@@ -48,10 +41,12 @@ int main()
     }
 
 
-    // // Transfer data from CPU to GPU
-    // if (cudaMemcpy(d_vec_a, h_vec_a, arr_bytes, cudaMemcpyHostToDevice) != cudaSuccess) {
-    //     std::cout << "Failed at cudaMemcpy H2D\n";
-    // }
+    // Transfer data from CPU to GPU
+    cudaError_t err = cudaMemcpy(d_vec_a, h_vec_a, arr_bytes, cudaMemcpyHostToDevice);
+    if (err != cudaSuccess) {
+        std::cout << "Failed at cudaMemcpy H2D\n";
+        std::cout << cudaGetErrorString(err) << "\n";
+    }
 
     // // Kernel launch
     // square<<<1, ARR_SIZE>>>(d_vec_a, d_vec_res);
