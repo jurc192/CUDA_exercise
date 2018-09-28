@@ -66,14 +66,11 @@ int main()
         std::cout << h_vec_res[i] << "\n";
     }
 
-    // Delete array
-    delete[] h_vec_a;
-    delete[] h_vec_res;
-    
+    // Free GPU memory
     cudaFree(d_vec_a);
     cudaFree(d_vec_res);
 
-    // if I remove d_vectors here, I get a segmentation error
-
+    // Freeing host memory produces some weird crap -> investigate and/or do c++ style
+    
     return 0;
 }
