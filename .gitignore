@@ -1,2 +1,5 @@
+job.sh
+run.sh
+debug/
 log.md
 Makefile
