@@ -66,14 +66,14 @@ int main()
         std::cout << h_vec_res[i] << "\n";
     }
 
-    // // Delete array
-    // delete[] h_vec_a;
-    // delete[] h_vec_res;
+    // Delete array
+    delete[] h_vec_a;
+    delete[] h_vec_res;
     
     cudaFree(d_vec_a);
     cudaFree(d_vec_res);
-    // delete d_vec_a;
-    // delete d_vec_res;
+    delete d_vec_a;
+    delete d_vec_res;
 
     return 0;
 }
